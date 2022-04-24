@@ -1,12 +1,3 @@
-let cartListArr = [{
-  id: "1",
-  name: "Muhammadsodiq",
-  email: "muhammad@gamil.com",
-  mobile: "+9989092705588",
-  department: "development"
-},
-];
-
 let cartList = document.querySelector(".tbody");
 let addedModal = document.querySelector("#addedModal");
 let formadd = document.querySelector(".formadd");
@@ -14,47 +5,6 @@ let idName = document.querySelector(".idName");
 let idEmail = document.querySelector(".idEmail");
 let idMobile = document.querySelector(".idMobile");
 let idSelect = document.querySelector(".idSelect");
-let newArr = [];
-
-function showUser(cartListArr) {
-  newArr = [];
-  cartListArr.forEach((item) => {
-    let tr = `
-     <tr>
-          <td class="nameTr">${item.name}</td>
-          <td>${item.email}</td>
-          <td>${item.mobile}</td>
-          <td>${item.department}</td>
-          <td>
-          <i type="button" onclick="editCard(${item.id})" class='bx bx-edit-alt iconsa me-2' data-bs-toggle="modal" data-bs-target="#editModal" class="btn btn-primary plusAdd"></i>
-          <i onclick="deleteIt(${item.id})" class='bx bx-x iconsa' ></i>
-          </td>
-     </tr>
-    `
-    newArr.push(tr);
-  })
-  cartList.innerHTML = newArr.join("")
-}
-showUser(cartListArr);
-
-
-formadd.addEventListener("submit", (e) => {
-  let count = cartListArr[cartListArr.length - 1].id;
-  e.preventDefault();
-  cartListArr.push({
-    id: ++count,
-    name: idName.value,
-    email: idEmail.value,
-    mobile: idMobile.value,
-    department: idSelect.value,
-  });
-  showUser(cartListArr);
-  console.log(cartListArr);
-  idName.value = "";
-  idEmail.value = "";
-  idMobile.value = "";
-  idSelect.value = "";
-});
 
 let formEdit = document.querySelector(".formEdit");
 let idNameEdit = document.querySelector(".idNameEdit");
@@ -62,47 +12,93 @@ let idEmailEdit = document.querySelector(".idEmailEdit");
 let idMobileEdit = document.querySelector(".idMobileEdit");
 let idSelectEdit = document.querySelector(".idSelectEdit");
 
+let newArr = [];
 
-function editCard (elId){
-  console.log(elId);
-  cartListArr.forEach((item) => {
-    if(elId === item.id) {
-      idNameEdit.value = item.name;
-      idEmailEdit.value = item.email;
-      idMobileEdit.value = item.mobile;
-      idSelectEdit.value = item.value;
-      editItem(elId);
-    }
-  })
+
+formadd.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  let addName = idName.value;
+  let addEmail = idEmail.value;
+  let addPhone = idMobile.value;
+  let addDepartment = idSelect.value;
+
+  newArr.push({
+    id: newArr.length,
+    name: addName,
+    email: addEmail,
+    phone: addPhone,
+    department: addDepartment
+  });
+
+  showUser(newArr);
+
+  idName.value = "";
+  idEmail.value = "";
+  idMobile.value = "";
+  idSelect.value = "";
+});
+
+function showUser(newArr){
+  cartList.innerHTML = "";
+  newArr.forEach((item) => {
+    let tr = document.createElement("tr");
+    tr.innerHTML = `
+     <tr>
+          <td class="nameTr">${item.name}</td>
+          <td>${item.email}</td>
+          <td>${item.phone}</td>
+          <td>${item.department}</td>
+          <td>
+          <i type="button" onclick="editCard(${item.id})" class='bx bx-edit-alt iconsa me-2' data-bs-toggle="modal" data-bs-target="#editModal" class="btn btn-primary plusAdd"></i>
+          <i onclick="deleteItem(${item.id})" class='bx bx-x iconsa' ></i>
+          </td>
+     </tr>
+    `
+    cartList.appendChild(tr);
+  });
 }
 
 
-function editItem (elId){
+function editCard(elId) {
+  newArr.forEach((item, index) => {
+    if(index == elId){
+      idNameEdit.value = item.name;
+      idEmailEdit.value = item.email;
+      idMobileEdit.value = item.phone;
+      idSelectEdit.value = item.department;
+
+      editItem(index);
+    }
+  });
+}
+
+function editItem(elId){
   let count = 1;
   formEdit.addEventListener("submit", (e) => {
     e.preventDefault();
     if(count == 1){
-      cartListArr[elId - 1].name = idNameEdit.value;
-      cartListArr[elId - 1].email = idEmailEdit.value;
-      cartListArr[elId - 1].mobile = idMobileEdit.value;
-      cartListArr[elId - 1].mobile = idSelectEdit.value;
-      showUser(cartListArr);
+      newArr[elId].name = idNameEdit.value;
+      newArr[elId].email = idEmailEdit.value;
+      newArr[elId].phone = idMobileEdit.value;
+      newArr[elId].department = idSelectEdit.value;
+  
+      showUser(newArr);
+
       count++;
     }
-  }); 
+  });
 }
 
 
-
-function deleteIt(elId){
+function deleteItem(elId){
   if(confirm ("Are you sure?")){
-    cartListArr = cartListArr.filter((item) => {
+    newArr = newArr.filter((item) => {
       if(elId != item.id){
         return item;
       }
     })
-  
-    showUser(cartListArr);
+    showUser(newArr);
   }
 }
 
@@ -120,4 +116,33 @@ searchUser.addEventListener("keyup", () => {
     }
   })
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
