@@ -10,16 +10,10 @@ let cartListArr = [{
 let cartList = document.querySelector(".tbody");
 let addedModal = document.querySelector("#addedModal");
 let formadd = document.querySelector(".formadd");
-let formEdit = document.querySelector(".formEdit");
 let idName = document.querySelector(".idName");
 let idEmail = document.querySelector(".idEmail");
 let idMobile = document.querySelector(".idMobile");
 let idSelect = document.querySelector(".idSelect");
-let idNameEdit = document.querySelector(".idNameEdit");
-let idEmailEdit = document.querySelector(".idEmailEdit");
-let idMobileEdit = document.querySelector(".idMobileEdit");
-let idSelectEdit = document.querySelector(".idSelectEdit");
-
 let newArr = [];
 
 function showUser(cartListArr) {
@@ -27,13 +21,13 @@ function showUser(cartListArr) {
   cartListArr.forEach((item) => {
     let tr = `
      <tr>
-          <td>${item.name}</td>
+          <td class="nameTr">${item.name}</td>
           <td>${item.email}</td>
           <td>${item.mobile}</td>
           <td>${item.department}</td>
           <td>
-          <i type="button" class='bx bx-edit-alt iconsa me-2' data-bs-toggle="modal" data-bs-target="#editModal"  onclick="editCard(${item.id})" class="btn btn-primary plusAdd"></i>
-          <i class='bx bx-x iconsa' ></i>
+          <i type="button" onclick="editCard(${item.id})" class='bx bx-edit-alt iconsa me-2' data-bs-toggle="modal" data-bs-target="#editModal" class="btn btn-primary plusAdd"></i>
+          <i onclick="deleteIt(${item.id})" class='bx bx-x iconsa' ></i>
           </td>
      </tr>
     `
@@ -62,6 +56,11 @@ formadd.addEventListener("submit", (e) => {
   idSelect.value = "";
 });
 
+let formEdit = document.querySelector(".formEdit");
+let idNameEdit = document.querySelector(".idNameEdit");
+let idEmailEdit = document.querySelector(".idEmailEdit");
+let idMobileEdit = document.querySelector(".idMobileEdit");
+let idSelectEdit = document.querySelector(".idSelectEdit");
 
 
 function editCard (elId){
@@ -82,7 +81,6 @@ function editItem (elId){
   let count = 1;
   formEdit.addEventListener("submit", (e) => {
     e.preventDefault();
-    console.log(cartListArr[elId - 1].name);
     if(count == 1){
       cartListArr[elId - 1].name = idNameEdit.value;
       cartListArr[elId - 1].email = idEmailEdit.value;
@@ -93,3 +91,33 @@ function editItem (elId){
     }
   }); 
 }
+
+
+
+function deleteIt(elId){
+  if(confirm ("Are you sure?")){
+    cartListArr = cartListArr.filter((item) => {
+      if(elId != item.id){
+        return item;
+      }
+    })
+  
+    showUser(cartListArr);
+  }
+}
+
+let searchUser = document.querySelector(".searchUser");
+
+searchUser.addEventListener("keyup", () => {
+  let elText = searchUser.value.toLowerCase();
+  let nameTr = document.querySelectorAll(".nameTr");
+  nameTr.forEach((item) => {
+    let elCompare = item.firstChild.textContent;
+    if(!elCompare.toLowerCase().includes(elText)){
+      item.parentNode.style.display = "none";
+    } else{
+      item.parentNode.style.display = "";
+    }
+  })
+});
+
