@@ -4,6 +4,7 @@ let formadd = document.querySelector(".formadd");
 let idName = document.querySelector(".idName");
 let idEmail = document.querySelector(".idEmail");
 let idMobile = document.querySelector(".idMobile");
+let NumberErr = document.querySelector('#numerr')
 let idSelect = document.querySelector(".idSelect");
 
 let formEdit = document.querySelector(".formEdit");
@@ -13,7 +14,6 @@ let idMobileEdit = document.querySelector(".idMobileEdit");
 let idSelectEdit = document.querySelector(".idSelectEdit");
 
 let newArr = [];
-
 
 formadd.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -33,13 +33,24 @@ formadd.addEventListener("submit", (e) => {
 
   showUser(newArr);
 
+
   idName.value = "";
   idEmail.value = "";
   idMobile.value = "";
   idSelect.value = "";
+
+  idName.style.border = "1px solid black"
+  idEmail.style.border = "1px solid black"
+  idMobile.style.border = "1px solid black"
+
+  document.querySelectorAll(".line").forEach((item) => {
+    item.style.border = "1px solid black"
+  });
+  document.querySelector('.add__err').style.display = "none"
+  document.querySelector('.add__err2').style.display = "none"
 });
 
-function showUser(newArr){
+function showUser(newArr) {
   cartList.innerHTML = "";
   newArr.forEach((item) => {
     let tr = document.createElement("tr");
@@ -62,7 +73,7 @@ function showUser(newArr){
 
 function editCard(elId) {
   newArr.forEach((item, index) => {
-    if(index == elId){
+    if (index == elId) {
       idNameEdit.value = item.name;
       idEmailEdit.value = item.email;
       idMobileEdit.value = item.phone;
@@ -73,16 +84,16 @@ function editCard(elId) {
   });
 }
 
-function editItem(elId){
+function editItem(elId) {
   let count = 1;
   formEdit.addEventListener("submit", (e) => {
     e.preventDefault();
-    if(count == 1){
+    if (count == 1) {
       newArr[elId].name = idNameEdit.value;
       newArr[elId].email = idEmailEdit.value;
       newArr[elId].phone = idMobileEdit.value;
       newArr[elId].department = idSelectEdit.value;
-  
+
       showUser(newArr);
 
       count++;
@@ -91,10 +102,10 @@ function editItem(elId){
 }
 
 
-function deleteItem(elId){
-  if(confirm ("Are you sure?")){
+function deleteItem(elId) {
+  if (confirm("Are you sure?")) {
     newArr = newArr.filter((item) => {
-      if(elId != item.id){
+      if (elId != item.id) {
         return item;
       }
     })
@@ -109,38 +120,76 @@ searchUser.addEventListener("keyup", () => {
   let nameTr = document.querySelectorAll(".nameTr");
   nameTr.forEach((item) => {
     let elCompare = item.firstChild.textContent;
-    if(!elCompare.toLowerCase().includes(elText)){
+    if (!elCompare.toLowerCase().includes(elText)) {
       item.parentNode.style.display = "none";
-    } else{
+    } else {
       item.parentNode.style.display = "";
     }
   })
 });
 
 
+idMobile.addEventListener("keyup", () => {
+  let text = document.querySelector(".add__err");
+  try {
+    let elName = idMobile.value;
+    if (!Number(elName) || elName.length < 12) {
+      idMobile.style.outline = "none";
+      idMobile.style.border = "2px solid red";
+      text.style.color = "red";
+      throw "Enter a valid mobile";
+    } else {
+      idMobile.style.outline = "none";
+      idMobile.style.border = "2px solid green";
+      text.style.color = "green";
+      throw "Success";
+    }
+  } catch (e) {
+    text.innerText = e;
+  }
+});
 
 
+idEmail.addEventListener("keyup", () => {
+  let text = document.querySelector(".add__err2");
+  try {
+    let elName = idEmail.value;
+    if (!/^\S+@\S+\.\S+$/.test(idEmail.value)) {
+      idEmail.style.outline = "none";
+      idEmail.style.border = "2px solid red";
+      text.style.color = "red";
+      throw "Enter a valid email";
+    } else {
+      idEmail.style.outline = "none";
+      idEmail.style.border = "2px solid green";
+      text.style.color = "green";
+      throw "Success";
+    }
+  } catch (e) {
+    text.innerText = e;
+  }
+});
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+idEmail.addEventListener("keyup", () => {
+  let text = document.querySelector(".add__err2");
+  try {
+    let elName = idEmail.value;
+    if (!/^\S+@\S+\.\S+$/.test(idEmail.value)) {
+      idEmail.style.outline = "none";
+      idEmail.style.border = "2px solid red";
+      text.style.color = "red";
+      throw "Enter a valid email";
+    } else {
+      idEmail.style.outline = "none";
+      idEmail.style.border = "2px solid green";
+      text.style.color = "green";
+      throw "Success";
+    }
+  } catch (e) {
+    text.innerText = e;
+  }
+});
 
 
 
