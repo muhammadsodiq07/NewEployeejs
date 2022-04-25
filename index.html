@@ -59,10 +59,18 @@
           <table class="table table-hover">
             <thead>
               <tr>
-                <th scope="col">Employee Name</th>
-                <th scope="col">Email Address (Personal)</th>
-                <th scope="col">Mobile Number</th>
-                <th scope="col">Department</th>
+                <th class="hoverN" scope="col">Employee Name
+                  <i class='bx bx-down-arrow-alt head-btn arrow-btn'></i>
+                </th>
+                <th class="hoverN" scope="col">Email Address (Personal)
+                  <i class='bx bx-down-arrow-alt head-btn arrow-btn'></i>
+                </th>
+                <th class="hoverN" scope="col">Mobile Number
+                  <i class='bx bx-down-arrow-alt head-btn arrow-btn'></i>
+                </th>
+                <th class="hoverN" scope="col">Department
+                  <i class='bx bx-down-arrow-alt head-btn arrow-btn'></i>
+                </th>
                 <th scope="col">Action</th>
               </tr>
             </thead>
@@ -96,12 +104,12 @@
           <form class="formadd">
             <div class="d-flex justify-content-around">
               <div class="formModalDiv">
-                <input type="text" class="form-control FullName idName mb-3 line" required placeholder="FullName">
-                <span class="add__err1 d-block mb-2" id="numerr"></span>
-                <input type="email" class="form-control FullName idEmail mb-3 line" required placeholder="Email">
-                <span class="add__err2 d-block mb-2" id="numerr"></span>
-                <input type="text" class="form-control FullName idMobile mb-3 line" required placeholder="Mobile">
-                <span class="add__err" id="numerr"></span>
+                <input type="text" class="form-control FullName idName mb-3" required placeholder="FullName">
+                <span class="add__err1 line mb-2" id="numerr"></span>
+                <input type="email" class="form-control FullName idEmail mb-3 mt-2" required placeholder="Email">
+                <span class="add__err2 line mb-2" id="numerr"></span>
+                <input type="text" class="form-control FullName idMobile mb-3 mt-2" required placeholder="Mobile">
+                <span class="add__err line" id="numerr"></span>
               </div>
               <div>
                 <div class="d-flex mb-3 pt-3">
@@ -134,7 +142,7 @@
                 <input type="date" class="form-control FullName">
               </div>
             </div>
-            <button type="submit" class="btn btn-primary addmodal" ">Submit</button>
+            <button type="submit" class="btn btn-primary addmodal" data-bs-dismiss="modal" aria-label="Close">Submit</button>
         </form>
       </div>
       <div class=" modal-footer">
@@ -157,8 +165,11 @@
             <div class="d-flex justify-content-around">
               <div class="formModalDiv">
                 <input type="text" class="form-control FullName idNameEdit mb-3" placeholder="FullName" required>
+                <span class="add__erreD EditM mb-2" id="numerr"></span>
                 <input type="email" class="form-control FullName idEmailEdit mb-3" placeholder="Email" required>
+                <span class="add__erreD1 EditM mb-2" id="numerr"></span>
                 <input type="text" class="form-control FullName idMobileEdit mb-3" placeholder="Mobile" required>
+                <span class="add__erreD2 EditM mb-2" id="numerr"></span>
               </div>
               <div>
                 <div class="d-flex mb-3 pt-3">
