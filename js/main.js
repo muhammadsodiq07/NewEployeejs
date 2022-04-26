@@ -372,8 +372,9 @@ let iconsscount = 0;
 iconss.forEach((item) => {
   item.addEventListener("click", () => {
     if (iconsscount == 0) {
-      item.style.color = "green";
-      iconsscount++;
+        item.style.color = "green";
+        iconsscount++;
+      
     } else {
       item.style.color = "#333996";
       iconsscount = 0;
